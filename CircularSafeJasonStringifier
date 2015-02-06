@@ -1,0 +1,23 @@
+// Quick hack to replace util.inspector, suggestions welcome!
+csjs = function(o) {
+  s = '';
+  for(k in o) {
+    if (o.hasOwnProperty(k)) {
+      if (typeof(o[k]) === 'object') {
+        if (o[k] === o) {
+          s += k + ': self; ';
+        } else {
+          if (o[k] instanceof Object) {
+            s += '; ' + k + ': ' + Object.keys(o[k]);
+          } else {
+            s += ' UFO: ' + k;
+          }
+        }
+      } else {
+        s += ' '+ k + ': ' + o[k] + '; ';
+      }
+    }
+    s += '\n';
+  }
+  return s;
+}
